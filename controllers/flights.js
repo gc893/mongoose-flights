@@ -7,7 +7,10 @@ module.exports = {
 }
 
 function newFlight(req, res, next) {
-    res.render('flights/new', {Flight ,title: 'Add Flight'})
+    const newFlight = new Flight();
+    const dt = newFlight.departs;
+    const departsDate = dt.toISOString().slice(0, 16);
+    res.render('flights/new', {departsDate ,title: 'Add Flight'})
   }
 
   function create(req, res) {
@@ -25,7 +28,7 @@ function newFlight(req, res, next) {
   }
 
   function index(req, res) {
-    Flight.find({}, function (err, flights) {
+    Flight.find({}, null, {sort: 'departs'}, function (err, flights) {
         res.render('flights/index', {flights, title: 'All flights'});
     })
 }

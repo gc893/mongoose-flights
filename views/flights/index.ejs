@@ -21,11 +21,11 @@
     </thead>
     <tbody>
         <% flights.forEach(f => { %>
-        <tr>
-          <td><%= f.airline %></td>
-          <td><%= f.airport %></td>
-          <td><%= f.flightNo %></td>
-          <td><%= f.departs %></td>
+          <tr <% if(f.departs < new Date()) { %> class = 'departed' <% } %> >
+            <td><%= f.airline %></td>
+            <td><%= f.airport %></td>
+            <td><%= f.flightNo %></td>
+            <td><%= f.departs %></td>
         </tr>
         <% }); %>
     </tbody>

@@ -20,7 +20,7 @@
     <select name="airport">
       <option value="AUS">AUS</option>
       <option value="DFW">DFW</option>
-      <option value="DEN">DEN</option>
+      <option value="DEN" selected>DEN</option>
       <option value="LAX">LAX</option>
       <option value="SAN">SAN</option>
     </select>
@@ -29,12 +29,10 @@
     <input type="number" name="flightNo">
   </label><br>
   <label>Date
-    <input type="date" name="flightDate">
+    <input value=<%= departsDate %> type="datetime-local" name="flightDate">
   </label><br>
   <input type="submit" value="Add Flight">
 </form>
-
-<!-- value='<%= Flight.departs %>' -->
 </body>
 </html>
 
