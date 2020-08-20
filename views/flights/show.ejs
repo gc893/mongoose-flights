@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <title><%=title%></title>
+</head>
+<body>
+    <%- include('../partials/nav.ejs') %>
+    <h1><%=title%></h1>
+    <p>Airline: <%= f.airline %></p>
+    <p>Airport: <%= f.airport %></p>
+    <p>Flight Number: <%= f.flightNo %></p>
+    <p>Departure Date: <%= f.departs %></p>
+
+<% if (f.destinations.length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Airport</th>
+        <th>Arrival</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% f.destinations.forEach(function(d) { %>
+        <tr>
+          <td><%= d.destinationAirport %></td>
+          <td><%= d.arrival %></td>
+          <td><form action="/destinations/<%=d._id%>?_method=DELETE" method="POST"><input type="submit" value="X"></form></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } else { %>
+  <h5>No Reviews Yet</h5>
+<% } %>
+
+
+
+<br><br><h2>Destinations</h2>
+<form id="add-destination-form" method="POST"
+  action="/flights/<%= f._id %>/destinations">
+
+  <label>Airport:</label>
+  <select name="destinationAirport">
+    <option value="AUS" <%- f.airport ==='AUS'? '' : 'selected'%> <%- f.airport ==='AUS'? 'disabled=true' : ''%> >AUS</option>
+    <option value="DFW" <%- f.airport ==='DFW'? 'disabled=true' : ''%>>DFW</option>
+    <option value="DEN" <%- f.airport ==='AUS'? 'selected' : ''%> <%- f.airport ==='DEN'? 'disabled=true' : ''%>>DEN</option>
+    <option value="LAX" <%- f.airport ==='LAX'? 'disabled=true' : ''%>>LAX</option>
+    <option value="SAN" <%- f.airport ==='SAN'? 'disabled=true' : ''%>>SAN</option>
+  </select>
+  <br>
+  <label>Arrival:</label>
+  <input value='<%= arrivalDate %>' type='datetime-local' name="arrival"></input>
+  <br>
+  <input type="submit" value="Add Destination">
+</form>
+
+</body>
+</html>
