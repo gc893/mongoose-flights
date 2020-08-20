@@ -14,6 +14,7 @@ function newFlight(req, res, next) {
   }
 
   function create(req, res) {
+    req.body.departs = req.body.flightDate;
     for (let key in req.body) {
       if (req.body[key] === '') delete req.body[key];}
     Flight.create(req.body)
