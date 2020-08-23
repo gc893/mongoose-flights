@@ -25,7 +25,7 @@ function newFlight(req, res, next) {
     })
     .catch( err => {
         console.log(err);
-        res.redirect('/flights/new');
+        res.redirect('/flights');
     })
   }
 
@@ -40,6 +40,10 @@ function show(req, res) {
     const dt = newFlight.departs;
     const arrivalDate = dt.toISOString().slice(0, 16);
     Flight.findById(req.params.id, function (err, f){
+      f.destinations.sort((a, b) => {
+        if(a.arrival.getTime() === b.arrival.getTime()) { return 0};
+        return a.arrival.getTime() < b.arrival.getTime() ? -1 : 1;
+      })
       res.render('flights/show', {f, arrivalDate, title: f.flightNo});
     })
 }

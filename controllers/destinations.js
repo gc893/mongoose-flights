@@ -16,5 +16,13 @@ function destinations(req, res, next) {
 }
 
 function remove(req, res, next) {
-res.redirect('/flights');
+    Flight.findOne({'destinations._id': req.params.id}, function(err, flight) {
+        console.log(flight);
+        const destinationDoc = flight.destinations.id(req.params.id)
+        destinationDoc.remove();
+        flight.save( err => {
+            if (err) {console.log(err)};
+            res.redirect(`/flights/${flight._id}`);
+        });
+    })
 }
