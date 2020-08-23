@@ -1,5 +1,4 @@
 const Flight = require('../models/flights');
-const { findById } = require('../models/flights');
 
 module.exports = {
 destinations,

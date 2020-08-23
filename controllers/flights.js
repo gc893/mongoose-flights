@@ -1,4 +1,5 @@
-const Flight = require('../models/flights')
+const Flight = require('../models/flights');
+const Ticket = require('../models/tickets');
 
 module.exports = {
     new: newFlight,
@@ -43,7 +44,9 @@ function show(req, res) {
       f.destinations.sort((a, b) => {
         if(a.arrival.getTime() === b.arrival.getTime()) { return 0};
         return a.arrival.getTime() < b.arrival.getTime() ? -1 : 1;
+      });
+      Ticket.find({flight: f._id}, function(err, tickets){
+        res.render('flights/show', {f, arrivalDate, title: f.flightNo, tickets});
       })
-      res.render('flights/show', {f, arrivalDate, title: f.flightNo});
     })
 }
